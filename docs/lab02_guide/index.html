@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KKU Cinematic Editorial - Lab 02</title>
+    <title>KKU Structured Guide - Lab 02</title>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Figtree:wght@300;500;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&family=Figtree:wght@400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #f2f2f2;
-            --text-color: #1a1a1a;
-            --accent-color: #c0392b; /* สีอิฐเข้ม */
-            --card-bg: rgba(255, 255, 255, 0.6);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
-            --noise-url: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #d35400; /* สีอิฐ มข. */
+            --border-color: #e0e0e0;
+            --strong-border: #111111;
+            --grid-gap: 1px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,48 +26,26 @@
             font-family: 'Sarabun', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
-            position: relative;
         }
 
-        /* --- Global Noise Overlay (Film Grain Effect) --- */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: var(--noise-url);
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* --- Unique Floating Header --- */
+        /* --- Header: Clean & Solid --- */
         header {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            padding: 10px 30px;
+            top: 0; left: 0; width: 100%;
+            padding: 0 40px;
+            height: 70px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border-radius: 50px;
-            border: var(--glass-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        header .logo-wrapper {
-            display: flex;
-            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--strong-border);
+            backdrop-filter: blur(5px);
         }
 
         nav ul {
             display: flex;
-            gap: 25px;
+            gap: 40px;
             list-style: none;
         }
 
@@ -76,35 +54,36 @@
             text-decoration: none;
             font-family: 'Figtree', sans-serif;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             position: relative;
-            white-space: nowrap; /* ป้องกันข้อความตกบรรทัด */
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -2px; left: 0; width: 0%; height: 2px;
+            bottom: -4px; left: 0; width: 0%; height: 2px;
             background: var(--accent-color);
-            transition: width 0.3s;
+            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         nav a:hover::after { width: 100%; }
 
-        /* --- WebGL Hero Section (Updated) --- */
+        /* --- Hero Section (WebGL) --- */
         #gallery-container {
             width: 100%;
             height: 100vh;
-            /* Support mobile browsers address bar */
+            /* แก้ไขให้รองรับความสูงหน้าจอมือถือ */
             height: 100dvh; 
+            padding-top: 70px; /* เว้นที่ให้ Header */
             position: relative;
             z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: transparent; 
+            background: #fcfcfc;
+            border-bottom: 1px solid var(--strong-border);
             overflow: hidden;
         }
         
@@ -114,299 +93,271 @@
             height: 100%;
         }
 
-        /* --- "Editorial" Layout Structure --- */
-        .editorial-section {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 5%;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Sticky Title on the Left */
-        .sticky-col {
-            flex: 0 0 300px; /* Fixed width */
-            position: sticky;
-            top: 150px;
-            height: fit-content;
-            padding-right: 40px;
-            margin-bottom: 50px;
-        }
-
-        .sticky-col h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            line-height: 1;
-            color: var(--text-color);
-            margin-bottom: 20px;
-        }
-        
-        .sticky-col .subtitle {
-            font-family: 'Figtree', sans-serif;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        .sticky-col p {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Content Column on the Right */
-        .content-col {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        /* --- Mosaic/Masonry Grid Style --- */
-        .mosaic-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .location-card {
-            background: var(--card-bg);
-            border: var(--glass-border);
-            padding: 20px;
-            border-radius: 0; /* Square edges for editorial look */
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .location-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.9);
-        }
-
-        /* Unique Grid Spans */
-        .location-card:nth-child(1) {
-            grid-column: span 2; /* Full width */
-        }
-        .location-card:nth-child(2) {
-            grid-row: span 2; /* Tall vertical */
-        }
-        
-        .card-image-wrap {
-            width: 100%;
-            height: 250px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .location-card:nth-child(1) .card-image-wrap { height: 400px; }
-        .location-card:nth-child(2) .card-image-wrap { height: 500px; }
-
-        .card-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-        }
-
-        .location-card:hover .card-image-wrap img {
-            transform: scale(1.1);
-        }
-
-        .card-meta {
+        /* --- Student Info Strip (Marquee Style) --- */
+        .info-strip {
+            border-bottom: 1px solid var(--strong-border);
+            padding: 20px 5%;
+            background: var(--text-color);
+            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            font-family: 'Figtree', sans-serif;
-            font-size: 0.8rem;
-            color: #888;
-            text-transform: uppercase;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .location-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+        .info-strip h3 {
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .info-strip p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* --- Grid Layout System --- */
+        .grid-section {
+            display: grid;
+            /* Grid แบบ Responsive อัตโนมัติ */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            width: 100%;
+            background: var(--strong-border); /* ใช้สีดำเป็นเส้น Grid */
+            gap: 1px; /* สร้างเส้นขอบด้วยช่องว่าง */
+            border-bottom: 1px solid var(--strong-border);
+        }
+
+        /* Title Box for Landmarks */
+        .section-header-box {
+            background: #fff;
+            padding: 60px 40px;
+            grid-column: 1 / -1; /* กินพื้นที่เต็มความกว้าง */
+        }
+
+        .section-header-box h2 {
+            font-family: 'Figtree', sans-serif;
+            font-size: 4rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .section-header-box p {
+            max-width: 500px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Individual Card */
+        .grid-card {
+            background: #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: background 0.3s;
+        }
+
+        .grid-card:hover {
+            background: #fafafa;
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 4/3; /* บังคับสัดส่วนภาพ */
+            overflow: hidden;
+            border-bottom: 1px solid var(--strong-border);
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .grid-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-color);
             margin-bottom: 10px;
+            display: block;
+        }
+
+        .grid-card h3 {
+            font-family: 'Figtree', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .grid-card p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
 
         .mini-thumbs {
             display: flex;
-            gap: 8px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-top: auto; /* ดันไปล่างสุด */
         }
-        .mini-thumbs img {
-            width: 50px; height: 50px;
-            object-fit: cover;
-            border-radius: 50%; /* Circular thumbnails */
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        .mini-thumbs img:hover { opacity: 1; }
 
-        /* --- Minimalist Form --- */
-        .form-container {
-            background: #fff;
-            padding: 60px;
-            position: relative;
+        .mini-thumbs img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .mini-thumbs img:hover {
+            border-color: var(--accent-color);
+        }
+
+        /* --- Form Section --- */
+        .form-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 1px solid var(--strong-border);
+        }
+
+        .form-info {
+            background: var(--text-color);
+            color: #fff;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border: 1px solid var(--text-color);
-            z-index: -1;
-            opacity: 0.2;
+        .form-info h2 { font-size: 3rem; line-height: 1; margin-bottom: 20px; font-family: 'Figtree'; }
+        .form-info p { opacity: 0.7; max-width: 400px; }
+
+        .form-area {
+            background: #fff;
+            padding: 60px 40px;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .input-group input, 
-        .input-group textarea {
-            width: 100%;
-            padding: 10px 0;
-            border: none;
-            border-bottom: 2px solid #ddd;
-            background: transparent;
-            font-family: 'Sarabun', sans-serif;
-            font-size: 1.1rem;
-            transition: border-color 0.3s;
-        }
-
-        .input-group input:focus, 
-        .input-group textarea:focus {
-            outline: none;
-            border-bottom-color: var(--accent-color);
+            margin-bottom: 25px;
         }
 
         .input-group label {
-            position: absolute;
-            top: 10px;
-            left: 0;
-            color: #999;
-            pointer-events: none;
-            transition: 0.3s ease all;
-            font-size: 1rem;
-        }
-
-        .input-group input:focus ~ label,
-        .input-group input:valid ~ label,
-        .input-group textarea:focus ~ label,
-        .input-group textarea:valid ~ label {
-            top: -20px;
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            color: var(--accent-color);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            color: #888;
         }
 
-        .btn-editorial {
-            background: var(--text-color);
-            color: #fff;
-            border: none;
-            padding: 15px 40px;
-            font-family: 'Figtree', sans-serif;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid var(--border-color);
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1rem;
+            border-radius: 0; /* Boxy! */
             transition: all 0.3s;
         }
 
-        .btn-editorial:hover {
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--strong-border);
+            background: #fff;
+        }
+
+        .btn-submit {
             background: var(--accent-color);
-            transform: skewX(-10deg);
+            color: #fff;
+            border: none;
+            padding: 18px 30px;
+            font-family: 'Figtree', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 0; /* Boxy! */
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #a04000;
         }
 
         /* --- Footer --- */
         footer {
-            background: #111;
-            color: #fff;
-            padding: 80px 5%;
+            padding: 40px;
             text-align: center;
+            background: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #888;
         }
-        
-        .footer-logo canvas { margin-bottom: 20px; }
 
-        /* --- Responsive Improvements --- */
+        /* --- Responsive Tweaks --- */
         @media (max-width: 900px) {
             header {
-                width: 95%;
-                top: 10px;
-                flex-direction: column; /* Stack logo and nav */
-                padding: 15px;
-                gap: 15px;
-                border-radius: 20px;
-            }
-
-            nav ul {
-                gap: 20px;
-                font-size: 0.9rem;
-            }
-
-            .editorial-section { 
-                flex-direction: column; 
-                padding: 60px 20px; /* Reduce padding */
-            }
-
-            .sticky-col { 
-                position: relative; 
-                top: 0; 
-                width: 100%; 
-                margin-bottom: 40px; 
-                text-align: center; /* Center align title on mobile */
-                padding-right: 0;
-            }
-
-            .sticky-col h2 { 
-                font-size: 2.5rem; /* Smaller Font */
+                padding: 0 20px;
             }
             
-            .content-col {
-                min-width: 100%;
+            nav {
+                display: none; /* ซ่อนเมนูบนมือถือเพื่อความสะอาด */
             }
 
-            .mosaic-grid { 
-                grid-template-columns: 1fr; /* Single column */
-                gap: 20px;
+            .section-header-box h2 {
+                font-size: 2.5rem;
             }
 
-            /* Reset Grid Spans for Mobile */
-            .location-card:nth-child(1) { grid-column: auto; }
-            .location-card:nth-child(2) { grid-row: auto; }
-
-            /* Consistent Image Height on Mobile */
-            .location-card:nth-child(1) .card-image-wrap,
-            .location-card:nth-child(2) .card-image-wrap,
-            .card-image-wrap { 
-                height: 220px; 
-            }
-
-            .form-container {
-                padding: 30px 20px;
+            .form-split {
+                grid-template-columns: 1fr;
             }
             
-            .btn-editorial {
-                width: 100%; /* Full width button */
+            .info-strip {
+                flex-direction: column;
+                text-align: center;
             }
-            
-            #gallery-container { 
-                padding-top: 100px; /* More space for header */
+        }
+        
+        /* Tablet/Mobile Grid adjustments */
+        @media (max-width: 600px) {
+            .grid-template-columns {
+                grid-template-columns: 1fr;
+            }
+            .section-header-box {
+                padding: 40px 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Floating Header -->
+    <!-- Header: Solid & Sticky -->
     <header>
         <div class="logo-wrapper">
-            <!-- Scale down canvas for mobile via CSS/Attributes if needed, handled in JS mostly -->
             <canvas id="logoCanvas" width="160" height="40"></canvas>
         </div>
         <nav>
@@ -418,146 +369,142 @@
         </nav>
     </header>
 
-    <!-- 2. WebGL Hero (Cinematic) -->
+    <!-- Hero: WebGL -->
     <main id="gallery-container"></main>
 
-    <!-- 3. Student Info Block (Minimalist) - UPDATED -->
-    <div style="text-align: center; padding: 60px 20px; position: relative; z-index: 5;">
-        <p style="font-family: 'Figtree'; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #888;">Curated By</p>
-        <h3 style="font-size: 1.8rem; margin: 15px 0; font-family: 'Sarabun', sans-serif; font-weight: 600;">พสิษฐ์ ผลวิเศษพรสุข</h3>
-        <p style="color: #666; font-family: 'Figtree', sans-serif; letter-spacing: 1px;">ID: 663380020-7 &mdash; College of Computing</p>
-        <div style="width: 2px; height: 40px; background: var(--accent-color); margin: 30px auto 0;"></div>
+    <!-- Student Info: High Contrast Strip -->
+    <div class="info-strip">
+        <h3>พสิษฐ์ ผลวิเศษพรสุข</h3>
+        <p>ID: 663380020-7 | College of Computing, KKU</p>
     </div>
 
-    <!-- 4. Locations Section (Editorial/Sticky Layout) -->
-    <section id="landmarks" class="editorial-section">
-        <div class="sticky-col">
-            <span class="subtitle">01 — Exploration</span>
-            <h2>Campus<br>Icons</h2>
-            <p>ค้นพบแลนด์มาร์คสำคัญของมหาวิทยาลัยขอนแก่น ผ่านมุมมองใหม่และการออกแบบที่แตกต่าง</p>
+    <!-- Landmarks: Structured Grid -->
+    <section id="landmarks" class="grid-section">
+        <div class="section-header-box">
+            <h2>Campus<br>Landmarks</h2>
+            <p>สำรวจสถานที่สำคัญภายในมหาวิทยาลัยขอนแก่น ผ่านมุมมองที่แตกต่าง</p>
         </div>
-        
-        <div class="content-col">
-            <div class="mosaic-grid">
-                
-                <article class="location-card">
-                    <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop" alt="Lake">
-                    </div>
-                    <div class="card-meta"><span>Nature</span> <span>01</span></div>
-                    <h3>Sithan Lake</h3>
-                    <p>บึงสีฐาน จุดเช็คอินยอดฮิตสำหรับชมพระอาทิตย์ตกดินและออกกำลังกาย</p>
-                    <div class="mini-thumbs">
-                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100">
-                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=100">
-                    </div>
-                </article>
 
-                <article class="location-card">
-                    <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1507842217121-9d5908b04c42?w=800&auto=format&fit=crop" alt="Library">
-                    </div>
-                    <div class="card-meta"><span>Education</span> <span>02</span></div>
-                    <h3>Central Library</h3>
-                    <p>แหล่งเรียนรู้ที่ทันสมัย (KKU Library) พร้อม Co-working space</p>
-                    <div class="mini-thumbs">
-                        <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=100">
-                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=100">
-                    </div>
-                </article>
-
-                <article class="location-card">
-                    <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop" alt="Complex">
-                    </div>
-                    <div class="card-meta"><span>Lifestyle</span> <span>03</span></div>
-                    <h3>KKU Complex</h3>
-                    <p>ศูนย์รวมอาหารและบริการครบวงจร เป็นจุดนัดพบสำคัญ</p>
-                    <div class="mini-thumbs">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100">
-                    </div>
-                </article>
-
-                 <article class="location-card">
-                    <div class="card-image-wrap">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop" alt="Computing">
-                    </div>
-                    <div class="card-meta"><span>Technology</span> <span>04</span></div>
-                    <h3>Computing College</h3>
-                    <p>ตึกวิทยาลัยการคอมพิวเตอร์ แหล่งกำเนิดนวัตกรรม AI และเทคโนโลยี</p>
-                    <div class="mini-thumbs">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=100">
-                    </div>
-                </article>
-
+        <!-- Card 1 -->
+        <article class="grid-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&auto=format&fit=crop" alt="Lake">
             </div>
-        </div>
+            <div class="card-content">
+                <span class="card-number">01 / NATURE</span>
+                <h3>Sithan Lake</h3>
+                <p>บึงสีฐาน พื้นที่สีเขียวขนาดใหญ่ใจกลาง มข. เหมาะแก่การพักผ่อนและออกกำลังกาย</p>
+                <div class="mini-thumbs">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=100">
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="grid-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1507842217121-9d5908b04c42?w=600&auto=format&fit=crop" alt="Library">
+            </div>
+            <div class="card-content">
+                <span class="card-number">02 / KNOWLEDGE</span>
+                <h3>Central Library</h3>
+                <p>หอสมุดกลาง ศูนย์รวมแหล่งความรู้และพื้นที่ Co-working space ที่ทันสมัย</p>
+                <div class="mini-thumbs">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=100">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=100">
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="grid-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop" alt="Complex">
+            </div>
+            <div class="card-content">
+                <span class="card-number">03 / LIFESTYLE</span>
+                <h3>KKU Complex</h3>
+                <p>ศูนย์อาหารและบริการครบวงจร จุดนัดพบหลักของนักศึกษา</p>
+                <div class="mini-thumbs">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100">
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="grid-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop" alt="Computing">
+            </div>
+            <div class="card-content">
+                <span class="card-number">04 / TECH</span>
+                <h3>College of Computing</h3>
+                <p>ตึกวิทยาลัยการคอมพิวเตอร์ ศูนย์กลางนวัตกรรมและเทคโนโลยี</p>
+                <div class="mini-thumbs">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=100">
+                </div>
+            </div>
+        </article>
     </section>
 
-    <!-- 5. Form Section (Editorial Layout) -->
-    <section id="contact" class="editorial-section" style="background: #fff;">
-        <div class="sticky-col">
-            <span class="subtitle">02 — Contribution</span>
+    <!-- Form Section: Split Layout -->
+    <section id="contact" class="form-split">
+        <div class="form-info">
             <h2>Recommend<br>A Place</h2>
-            <p>ร่วมเป็นส่วนหนึ่งในการแนะนำสถานที่น่าสนใจภายในมหาวิทยาลัย</p>
+            <p>ร่วมแบ่งปันสถานที่น่าสนใจในมุมมองของคุณ เพื่อให้ Campus Guide สมบูรณ์ยิ่งขึ้น</p>
         </div>
-        <div class="content-col">
-            <div class="form-container">
-                <form action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+        <div class="form-area">
+            <form action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
 
-                    <div class="input-group">
-                        <input type="text" name="place" required>
-                        <label>Place Name (ชื่อสถานที่)</label>
-                    </div>
+                <div class="input-group">
+                    <label>Place Name</label>
+                    <input type="text" name="place" placeholder="ชื่อสถานที่..." required>
+                </div>
 
-                    <div class="input-group">
-                        <textarea name="details" rows="3" required></textarea>
-                        <label>Description (รายละเอียด)</label>
-                    </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea name="details" rows="4" placeholder="รายละเอียด..." required></textarea>
+                </div>
 
-                    <div class="input-group">
-                        <input type="url" name="image_url">
-                        <label>Image URL (ลิงก์รูปภาพ)</label>
-                    </div>
+                <div class="input-group">
+                    <label>Image URL</label>
+                    <input type="url" name="image_url" placeholder="https://...">
+                </div>
 
-                    <button type="submit" class="btn-editorial">Submit Data</button>
-                </form>
-            </div>
+                <button type="submit" class="btn-submit">Submit Data</button>
+            </form>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="footer-logo">
-            <canvas id="footerLogoCanvas" width="50" height="50"></canvas>
+        <div style="margin-bottom: 20px;">
+            <canvas id="footerLogoCanvas" width="40" height="40"></canvas>
         </div>
-        <p>&copy; 2025 KKU Editorial Guide. <br>Design Concept: Modern Editorial.</p>
+        &copy; 2025 KKU Structured Guide. Lab 02 Assignment.
     </footer>
 
     <!-- Scripts -->
     <script type="module">
         import { Renderer, Camera, Transform, Plane, Mesh, Program, Texture } from 'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs';
 
-        // --- 1. Unique Logo Animation (FIXED) ---
-        function initLogo(canvasId, color = "#1a1a1a") {
+        // --- 1. Robust Logo Drawing ---
+        function initLogo(canvasId, color = "#111") {
             const canvas = document.getElementById(canvasId);
             if(!canvas) return;
-            
-            // Fix blur on high DPI screens AND fix zero-width issue
+
+            // Fix DPI issues
             const dpr = window.devicePixelRatio || 1;
+            const width = parseInt(canvas.getAttribute("width"));
+            const height = parseInt(canvas.getAttribute("height"));
             
-            // Use logical width/height from attributes to ensure stability
-            const logicalWidth = parseInt(canvas.getAttribute("width")) || 160;
-            const logicalHeight = parseInt(canvas.getAttribute("height")) || 40;
-
-            // Enforce logical size via CSS to prevent collapse
-            canvas.style.width = `${logicalWidth}px`;
-            canvas.style.height = `${logicalHeight}px`;
-
-            // Set internal buffer size
-            canvas.width = logicalWidth * dpr;
-            canvas.height = logicalHeight * dpr;
+            // Set display size via CSS
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+            // Set actual buffer size
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
             
             const ctx = canvas.getContext('2d');
             ctx.scale(dpr, dpr);
@@ -565,48 +512,33 @@
             let frame = 0;
 
             function draw() {
-                // Clear using logical coordinates
-                ctx.clearRect(0, 0, logicalWidth, logicalHeight);
+                ctx.clearRect(0, 0, width, height);
                 
-                ctx.font = "800 20px Figtree";
-                ctx.fillStyle = color;
-                // Coordinates adjusted for 160x40 canvas
-                ctx.fillText("KKU GUIDE", 52, 28);
+                // Text
+                if (width > 50) { // Only draw text for header logo
+                    ctx.font = "800 18px Figtree";
+                    ctx.fillStyle = color;
+                    ctx.fillText("KKU GUIDE", 50, 26);
+                }
 
-                const cx = 22;
+                // Icon: Square Focus (Boxy Style)
+                const cx = width > 50 ? 20 : 20;
                 const cy = 20;
 
                 ctx.save();
                 ctx.translate(cx, cy);
 
+                // Rotating Squares
                 ctx.strokeStyle = color;
                 ctx.lineWidth = 2;
-                ctx.lineCap = "round";
-                const size = 8 + Math.sin(frame * 0.02) * 2; 
                 
-                ctx.beginPath(); 
-                ctx.moveTo(-size, -size/1.5); 
-                ctx.lineTo(-size, -size); 
-                ctx.lineTo(-size/1.5, -size); 
-                ctx.stroke();
-
-                ctx.beginPath(); 
-                ctx.moveTo(size, size/1.5); 
-                ctx.lineTo(size, size); 
-                ctx.lineTo(size/1.5, size); 
-                ctx.stroke();
-
-                ctx.fillStyle = "#c0392b";
-                ctx.beginPath();
-                ctx.arc(0, 0, 3, 0, Math.PI * 2);
-                ctx.fill();
+                // Outer Square
+                ctx.strokeRect(-8, -8, 16, 16);
                 
-                ctx.rotate(frame * 0.015); 
-                ctx.fillStyle = color;
-                ctx.globalAlpha = 0.5;
-                ctx.beginPath();
-                ctx.arc(14, 0, 2, 0, Math.PI * 2);
-                ctx.fill();
+                // Inner Square (Rotating)
+                ctx.rotate(frame * 0.02);
+                ctx.fillStyle = "#d35400";
+                ctx.fillRect(-4, -4, 8, 8);
 
                 ctx.restore();
                 
@@ -616,7 +548,8 @@
             draw();
         }
         
-        // --- 2. WebGL Gallery ---
+        // --- 2. WebGL Logic (Boxy Version) ---
+        // Reuse same logic but tune aesthetics
         function debounce(func, wait) {
             let timeout;
             return function (...args) {
@@ -626,7 +559,7 @@
         }
         function lerp(p1, p2, t) { return p1 + (p2 - p1) * t; }
         
-        function createTextTexture(gl, text, font = '800 50px Playfair Display', color = '#1a1a1a') { 
+        function createTextTexture(gl, text, font = '800 60px Figtree', color = '#111') { 
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
             context.font = font;
@@ -647,7 +580,7 @@
         }
 
         class Title {
-            constructor({ gl, plane, renderer, text, textColor = '#1a1a1a', font }) {
+            constructor({ gl, plane, renderer, text, textColor = '#111', font }) {
                 this.gl = gl;
                 this.plane = plane;
                 this.renderer = renderer;
@@ -707,31 +640,29 @@
                         precision highp float; attribute vec3 position; attribute vec2 uv; uniform mat4 modelViewMatrix; uniform mat4 projectionMatrix; uniform float uTime; uniform float uSpeed; varying vec2 vUv; varying float vSpeed;
                         void main() {
                             vUv = uv; vSpeed = uSpeed; vec3 p = position;
-                            p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.3);
-                            p.x += sin(p.y * 10.0) * uSpeed * 0.05; 
+                            // Minimal distortion for Boxy look
+                            p.z = (sin(p.x * 2.0 + uTime) * 0.5) * (0.1 + uSpeed * 0.2); 
                             gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
                         }
                     `,
                     fragment: `
                         precision highp float; uniform vec2 uImageSizes; uniform vec2 uPlaneSizes; uniform sampler2D tMap; uniform float uBorderRadius; uniform float uTime; varying float vSpeed; varying vec2 vUv;
-                        float random(vec2 p) { return fract(sin(dot(p.xy ,vec2(12.9898,78.233))) * 43758.5453); }
-                        float roundedBoxSDF(vec2 p, vec2 b, float r) { vec2 d = abs(p) - b; return length(max(d, vec2(0.0))) + min(max(d.x, d.y), 0.0) - r; }
                         void main() {
                             vec2 ratio = vec2(min((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0), min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0));
                             vec2 uv = vec2(vUv.x * ratio.x + (1.0 - ratio.x) * 0.5, vUv.y * ratio.y + (1.0 - ratio.y) * 0.5);
-                            float rgbStrength = vSpeed * 0.02; 
+                            
+                            // Subtle RGB Shift
+                            float rgbStrength = vSpeed * 0.01; 
                             vec4 colorR = texture2D(tMap, uv + vec2(rgbStrength, 0.0));
                             vec4 colorG = texture2D(tMap, uv);
                             vec4 colorB = texture2D(tMap, uv - vec2(rgbStrength, 0.0));
                             vec4 color = vec4(colorR.r, colorG.g, colorB.b, 1.0);
-                            float noise = random(vUv + uTime);
-                            color.rgb += (noise - 0.5) * 0.08; 
-                            float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
-                            float alpha = 1.0 - smoothstep(-0.002, 0.002, d);
-                            gl_FragColor = vec4(color.rgb, alpha * color.a);
+                            
+                            // No rounded corners! (Boxy)
+                            gl_FragColor = vec4(color.rgb, 1.0);
                         }
                     `,
-                    uniforms: { tMap: { value: texture }, uPlaneSizes: { value: [0, 0] }, uImageSizes: { value: [0, 0] }, uSpeed: { value: 0 }, uTime: { value: 0 }, uBorderRadius: { value: this.borderRadius } },
+                    uniforms: { tMap: { value: texture }, uPlaneSizes: { value: [0, 0] }, uImageSizes: { value: [0, 0] }, uSpeed: { value: 0 }, uTime: { value: 0 }, uBorderRadius: { value: 0 } },
                     transparent: true
                 });
                 const img = new Image(); img.crossOrigin = 'anonymous'; img.src = this.image;
@@ -741,13 +672,10 @@
             createTitle() { this.title = new Title({ gl: this.gl, plane: this.plane, renderer: this.renderer, text: this.text, textColor: this.textColor, font: this.font }); }
             update(scroll, direction) {
                 this.plane.position.x = this.x - scroll.current - this.extra;
-                const x = this.plane.position.x; const H = this.viewport.width / 2;
-                if (this.bend === 0) { this.plane.position.y = 0; this.plane.rotation.z = 0; } 
-                else {
-                    const B_abs = Math.abs(this.bend); const R = (H * H + B_abs * B_abs) / (2 * B_abs); const effectiveX = Math.min(Math.abs(x), H); const arc = R - Math.sqrt(R * R - effectiveX * effectiveX);
-                    if (this.bend > 0) { this.plane.position.y = -arc; this.plane.rotation.z = -Math.sign(x) * Math.asin(effectiveX / R); } 
-                    else { this.plane.position.y = arc; this.plane.rotation.z = Math.sign(x) * Math.asin(effectiveX / R); }
-                }
+                // Keep it flat (Boxy)
+                this.plane.position.y = 0; 
+                this.plane.rotation.z = 0;
+                
                 this.speed = scroll.current - scroll.last; this.program.uniforms.uTime.value += 0.04; this.program.uniforms.uSpeed.value = this.speed;
                 const planeOffset = this.plane.scale.x / 2; const viewportOffset = this.viewport.width / 2;
                 this.isBefore = this.plane.position.x + planeOffset < -viewportOffset; this.isAfter = this.plane.position.x - planeOffset > viewportOffset;
@@ -757,18 +685,16 @@
             onResize({ screen, viewport } = {}) {
                 if (screen) this.screen = screen; if (viewport) { this.viewport = viewport; if (this.plane.program.uniforms.uViewportSizes) this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]; }
                 
-                // MOBILE TWEAK: Increase scale multiplier on small screens so items aren't tiny
+                // Optimized for Boxy Fullscreen
                 const isMobile = this.screen.width < 768;
-                this.scale = isMobile ? (this.screen.height / 1300) : (this.screen.height / 1500); 
+                this.scale = isMobile ? (this.screen.height / 1200) : (this.screen.height / 1400); 
                 
-                this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height; 
-                
-                // MOBILE TWEAK: Adjust width base
-                const baseWidth = isMobile ? 1200 : 700;
+                this.plane.scale.y = (this.viewport.height * (800 * this.scale)) / this.screen.height; 
+                const baseWidth = isMobile ? 800 : 900;
                 this.plane.scale.x = (this.viewport.width * (baseWidth * this.scale)) / this.screen.width;
                 
                 this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y]; 
-                this.padding = 2; 
+                this.padding = 1; 
                 this.width = this.plane.scale.x + this.padding; 
                 this.widthTotal = this.width * this.length; 
                 this.x = this.width * this.index;
@@ -777,13 +703,13 @@
 
         class App {
             constructor(container, { items, bend, textColor, borderRadius, font }) {
-                this.container = container; this.scroll = { ease: 0.025, current: 0, target: 0, last: 0 }; this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
+                this.container = container; this.scroll = { ease: 0.04, current: 0, target: 0, last: 0 }; this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
                 this.createRenderer(); this.createCamera(); this.createScene(); this.onResize(); this.createGeometry(); this.createMedias(items, bend, textColor, borderRadius, font); this.update(); this.addEventListeners();
             }
             createRenderer() { this.renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) }); this.gl = this.renderer.gl; this.gl.clearColor(0, 0, 0, 0); this.container.appendChild(this.gl.canvas); }
             createCamera() { this.camera = new Camera(this.gl); this.camera.fov = 45; this.camera.position.z = 20; }
             createScene() { this.scene = new Transform(); }
-            createGeometry() { this.planeGeometry = new Plane(this.gl, { heightSegments: 20, widthSegments: 40 }); }
+            createGeometry() { this.planeGeometry = new Plane(this.gl, { heightSegments: 10, widthSegments: 20 }); }
             createMedias(items, bend = 1, textColor, borderRadius, font) {
                 this.mediasImages = items.concat(items);
                 this.medias = this.mediasImages.map((data, index) => new Media({ geometry: this.planeGeometry, gl: this.gl, image: data.image, index, length: this.mediasImages.length, renderer: this.renderer, scene: this.scene, screen: this.screen, text: data.text, viewport: this.viewport, bend, textColor, borderRadius, font }));
@@ -809,26 +735,25 @@
         }
 
         const galleryItems = [
-            { image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop', text: 'Sithan' },
-            { image: 'https://images.unsplash.com/photo-1507842217121-9d5908b04c42?w=800&auto=format&fit=crop', text: 'Library' },
-            { image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop', text: 'Complex' },
-            { image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop', text: 'Computing' },
-            { image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&auto=format&fit=crop', text: 'Jubilee' },
+            { image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop', text: 'SITHAN' },
+            { image: 'https://images.unsplash.com/photo-1507842217121-9d5908b04c42?w=800&auto=format&fit=crop', text: 'LIBRARY' },
+            { image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop', text: 'COMPLEX' },
+            { image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop', text: 'COMPUTING' },
+            { image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&auto=format&fit=crop', text: 'JUBILEE' },
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('gallery-container');
             new App(container, {
                 items: galleryItems,
-                bend: 2,
-                textColor: '#1a1a1a', 
-                borderRadius: 0, /* Square aesthetic */
-                font: '800 50px Playfair Display'
+                bend: 0, // Flat (Boxy)
+                textColor: '#111', 
+                borderRadius: 0, /* Strict Boxy aesthetic */
+                font: '800 60px Figtree'
             });
             
-            // Re-init logos to be safe after DOM load
-            initLogo('logoCanvas', '#1a1a1a');
-            initLogo('footerLogoCanvas', '#ffffff');
+            initLogo('logoCanvas', '#111');
+            initLogo('footerLogoCanvas', '#888');
         });
     </script>
 </body>
