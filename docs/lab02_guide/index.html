@@ -28,7 +28,7 @@
             line-height: 1.6;
         }
 
-        /* --- Header: Clean & Solid --- */
+        /* --- Header: Glassmorphism Updated --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -38,15 +38,21 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid var(--strong-border);
-            backdrop-filter: blur(5px);
+            /* เพิ่มความโปร่งใสเพื่อให้เห็น Effect Blur ชัดเจน */
+            background: rgba(255, 255, 255, 0.7);
+            /* เพิ่มค่า Blur */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Safari Support */
+            border-bottom: 1px solid rgba(17, 17, 17, 0.1); /* เส้นขอบจางลงนิดหน่อยเพื่อให้เข้ากับกระจก */
+            transition: all 0.3s ease;
         }
 
         nav ul {
             display: flex;
             gap: 40px;
             list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         nav a {
@@ -58,12 +64,13 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             position: relative;
+            padding: 5px 0;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px; left: 0; width: 0%; height: 2px;
+            bottom: 0; left: 0; width: 0%; height: 2px;
             background: var(--accent-color);
             transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -74,9 +81,8 @@
         #gallery-container {
             width: 100%;
             height: 100vh;
-            /* แก้ไขให้รองรับความสูงหน้าจอมือถือ */
             height: 100dvh; 
-            padding-top: 70px; /* เว้นที่ให้ Header */
+            padding-top: 70px; 
             position: relative;
             z-index: 1;
             display: flex;
@@ -123,11 +129,10 @@
         /* --- Grid Layout System --- */
         .grid-section {
             display: grid;
-            /* Grid แบบ Responsive อัตโนมัติ */
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             width: 100%;
-            background: var(--strong-border); /* ใช้สีดำเป็นเส้น Grid */
-            gap: 1px; /* สร้างเส้นขอบด้วยช่องว่าง */
+            background: var(--strong-border); 
+            gap: 1px; 
             border-bottom: 1px solid var(--strong-border);
         }
 
@@ -135,7 +140,7 @@
         .section-header-box {
             background: #fff;
             padding: 60px 40px;
-            grid-column: 1 / -1; /* กินพื้นที่เต็มความกว้าง */
+            grid-column: 1 / -1; 
         }
 
         .section-header-box h2 {
@@ -169,7 +174,7 @@
 
         .card-image {
             width: 100%;
-            aspect-ratio: 4/3; /* บังคับสัดส่วนภาพ */
+            aspect-ratio: 4/3; 
             overflow: hidden;
             border-bottom: 1px solid var(--strong-border);
             position: relative;
@@ -219,7 +224,7 @@
         .mini-thumbs {
             display: flex;
             gap: 10px;
-            margin-top: auto; /* ดันไปล่างสุด */
+            margin-top: auto; 
         }
 
         .mini-thumbs img {
@@ -279,7 +284,7 @@
             border: 1px solid var(--border-color);
             font-family: 'Sarabun', sans-serif;
             font-size: 1rem;
-            border-radius: 0; /* Boxy! */
+            border-radius: 0; 
             transition: all 0.3s;
         }
 
@@ -300,7 +305,7 @@
             letter-spacing: 1px;
             cursor: pointer;
             width: 100%;
-            border-radius: 0; /* Boxy! */
+            border-radius: 0; 
             transition: background 0.3s;
         }
 
@@ -321,11 +326,21 @@
         /* --- Responsive Tweaks --- */
         @media (max-width: 900px) {
             header {
-                padding: 0 20px;
+                padding: 10px 20px; /* ลด Padding */
+                height: auto; /* ให้ความสูงยืดหยุ่น */
+                flex-direction: column; /* เรียงแนวตั้งบนมือถือ */
+                gap: 15px;
             }
             
             nav {
-                display: none; /* ซ่อนเมนูบนมือถือเพื่อความสะอาด */
+                display: block; /* แสดงผล Nav กลับมา */
+                width: 100%;
+            }
+
+            nav ul {
+                justify-content: center; /* จัดกึ่งกลาง */
+                gap: 20px; /* ลดช่องว่าง */
+                font-size: 0.85rem;
             }
 
             .section-header-box h2 {
@@ -339,6 +354,11 @@
             .info-strip {
                 flex-direction: column;
                 text-align: center;
+            }
+            
+            /* ปรับระยะ WebGL ให้ไม่โดน Header ทับ */
+            #gallery-container {
+                padding-top: 110px; /* Header สูงขึ้นเมื่อเป็น Column */
             }
         }
         
