@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "skipLibCheck": true, // <--- เพิ่มบรรทัดนี้
+    "moduleResolution": "node" // <--- แนะนำให้เพิ่มบรรทัดนี้ด้วยเพื่อให้หา module เจอได้ถูกต้องแม่นยำขึ้น
+  }
+}
