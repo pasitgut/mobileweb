@@ -8,7 +8,7 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), legacy()],
-  base: "./",
+  base: "/mobileweb/lab06/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
