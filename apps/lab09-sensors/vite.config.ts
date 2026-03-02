@@ -7,6 +7,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/mobileweb/lab09/",
   plugins: [
     vue(),
     legacy()
